@@ -1,5 +1,5 @@
 run:
-	g++ -o run ./main.cpp -lncurses
+	g++ -o run ./src/main.cpp -lncurses
 	./run
 
 clean:
