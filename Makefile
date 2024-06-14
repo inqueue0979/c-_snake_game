@@ -11,7 +11,9 @@ DEPS = $(OBJS:.o=.d)
 
 TARGET = run
 
-all: $(TARGET)
+.PHONY: all clean run
+
+all: $(TARGET) run
 
 $(TARGET): $(OBJS)
 	$(CXX) -o $@ $^ $(CXXFLAGS)
@@ -25,3 +27,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 clean:
 	rm -f $(TARGET) $(OBJS) $(DEPS)
 	clear
+
+run: $(TARGET)
+	./$(TARGET)
