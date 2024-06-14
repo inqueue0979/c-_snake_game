@@ -1,5 +1,6 @@
 CXX = g++
-CXXFLAGS = -Wall -Iinclude -lncurses
+CXXFLAGS = -Wall -Iinclude -std=c++11
+LDFLAGS = -lncurses
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -11,12 +12,13 @@ DEPS = $(OBJS:.o=.d)
 
 TARGET = run
 
-.PHONY: all clean run
+.PHONY: all clean
 
-all: $(TARGET) run
+all: $(TARGET)
+	./$(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CXX) -o $@ $^ $(CXXFLAGS)
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(OBJ_DIR)
@@ -27,6 +29,3 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 clean:
 	rm -f $(TARGET) $(OBJS) $(DEPS)
 	clear
-
-run: $(TARGET)
-	./$(TARGET)
