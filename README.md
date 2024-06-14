@@ -1,4 +1,5 @@
-# 국민대학교 2024 C++프로그래밍 Snake Game 프로젝트
+![header](https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=2024%20Snake%20Game&desc=Kookmin%20Univ.%20C%2B%2B프로그래밍%20"하브사케"%20팀&descAlignY=55&animation=fadeIn&fontAlignY=40&section=header&reversal=true)
+
 
 <div align=center>
 <table>
