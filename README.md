@@ -1,7 +1,41 @@
+<div align=center>
+  
 ![header](https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=2024%20Snake%20Game&desc=Kookmin%20Univ.%20C%2B%2B프로그래밍%20"하브사케"%20팀&descAlignY=55&animation=fadeIn&fontAlignY=40&section=header&reversal=true)
 
-
-<div align=center>
+## 프로젝트 구조
+<div align=left>
+  
+```plaintext
+CPP_SNAKE_GAME/
+├── include/
+│   ├── data.h                // 프로젝트 전반에서 사용할 데이터 및 상수 정의 (필요시)
+│   ├── MapData.h             // 맵 데이터를 외부에서 사용할 수 있도록 선언
+│   ├── Snake.h               // Snake 클래스 선언, 뱀의 상태와 동작을 정의
+│   └── SnakeMap.h            // SnakeMap 클래스 선언, 게임 맵의 상태와 동작을 정의
+├── obj/
+│   ├── main.d                // main.cpp의 종속성 파일
+│   ├── main.o                // main.cpp의 오브젝트 파일
+│   ├── MapData.d             // MapData.cpp의 종속성 파일
+│   ├── MapData.o             // MapData.cpp의 오브젝트 파일
+│   ├── Snake.d               // Snake.cpp의 종속성 파일
+│   ├── Snake.o               // Snake.cpp의 오브젝트 파일
+│   ├── SnakeMap.d            // SnakeMap.cpp의 종속성 파일
+│   └── SnakeMap.o            // SnakeMap.cpp의 오브젝트 파일
+├── src/
+│   ├── main.cpp              // 메인 실행 파일, 게임 초기화 및 메인 루프 처리
+│   ├── MapData.cpp           // 맵 데이터 정의, 다양한 레벨의 맵 데이터를 포함
+│   ├── Snake.cpp             // Snake 클래스의 구현, 뱀의 움직임과 충돌 처리 로직 포함
+│   └── SnakeMap.cpp          // SnakeMap 클래스의 구현, 게임 맵 그리기 및 충돌 처리 로직 포함
+├── test/
+│   └── credit_screen_test.cpp // 크레딧 화면 등의 테스트 코드 (예시)
+├── .gitignore                // Git에서 무시할 파일/디렉토리 지정
+├── Makefile                  // 빌드 자동화를 위한 Makefile, 컴파일 및 실행 설정
+├── README.md                 // 프로젝트 설명 및 사용법을 담은 문서
+└── run                       // 생성된 실행 파일 (빌드 후 생성됨)
+```
+</div>
+  
+## 구현 단계 도식화
 <table>
   <thead>
     <tr>
