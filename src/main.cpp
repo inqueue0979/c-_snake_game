@@ -10,7 +10,7 @@ int main() {
 
     switch (choice) {
         case 1: // 게임 시작
-            snakeMap.drawMap();
+            snakeMap.drawMap(3, 1);
             getch();
             endwin();
             break;
