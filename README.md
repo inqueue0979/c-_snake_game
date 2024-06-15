@@ -7,31 +7,28 @@
   
 ```plaintext
 CPP_SNAKE_GAME/
-├── include/
-│   ├── data.h                // 프로젝트 전반에서 사용할 데이터 및 상수 정의 (필요시)
-│   ├── MapData.h             // 맵 데이터를 외부에서 사용할 수 있도록 선언
-│   ├── Snake.h               // Snake 클래스 선언, 뱀의 상태와 동작을 정의
-│   └── SnakeMap.h            // SnakeMap 클래스 선언, 게임 맵의 상태와 동작을 정의
-├── obj/
-│   ├── main.d                // main.cpp의 종속성 파일
-│   ├── main.o                // main.cpp의 오브젝트 파일
-│   ├── MapData.d             // MapData.cpp의 종속성 파일
-│   ├── MapData.o             // MapData.cpp의 오브젝트 파일
-│   ├── Snake.d               // Snake.cpp의 종속성 파일
-│   ├── Snake.o               // Snake.cpp의 오브젝트 파일
-│   ├── SnakeMap.d            // SnakeMap.cpp의 종속성 파일
-│   └── SnakeMap.o            // SnakeMap.cpp의 오브젝트 파일
-├── src/
-│   ├── main.cpp              // 메인 실행 파일, 게임 초기화 및 메인 루프 처리
-│   ├── MapData.cpp           // 맵 데이터 정의, 다양한 레벨의 맵 데이터를 포함
-│   ├── Snake.cpp             // Snake 클래스의 구현, 뱀의 움직임과 충돌 처리 로직 포함
-│   └── SnakeMap.cpp          // SnakeMap 클래스의 구현, 게임 맵 그리기 및 충돌 처리 로직 포함
-├── test/
-│   └── credit_screen_test.cpp // 크레딧 화면 등의 테스트 코드 (예시)
-├── .gitignore                // Git에서 무시할 파일/디렉토리 지정
-├── Makefile                  // 빌드 자동화를 위한 Makefile, 컴파일 및 실행 설정
-├── README.md                 // 프로젝트 설명 및 사용법을 담은 문서
-└── run                       // 생성된 실행 파일 (빌드 후 생성됨)
+├── include/                              # 헤더 파일들이 포함된 디렉토리
+│   ├── data.h                            # 게임 내 뱀 아트와 텍스트 타이틀 데이터를 포함
+│   ├── InputHandler.h                    # 입력 처리를 위한 클래스 헤더 파일
+│   ├── MainMenu.h                        # 메인 메뉴 클래스를 위한 헤더 파일
+│   ├── MapData.h                         # 맵 데이터를 포함하는 헤더 파일
+│   ├── Snake.h                           # 뱀 클래스 헤더 파일
+│   └── SnakeMap.h                        # 맵 클래스를 위한 헤더 파일
+├── obj/                                  # 오브젝트 파일들이 저장될 디렉토리 (컴파일된 중간 파일들)
+├── src/                                  # 소스 파일들이 포함된 디렉토리
+│   ├── data.cpp                          # 게임 내 뱀 아트와 텍스트 타이틀 데이터를 정의
+│   ├── InputHandler.cpp                  # 입력 처리를 구현하는 소스 파일
+│   ├── main.cpp                          # 프로그램의 진입점
+│   ├── MainMenu.cpp                      # 메인 메뉴 클래스를 구현하는 소스 파일
+│   ├── MapData.cpp                       # 맵 데이터를 구현하는 소스 파일
+│   ├── Snake.cpp                         # 뱀 클래스를 구현하는 소스 파일
+│   └── SnakeMap.cpp                      # 맵 클래스를 구현하는 소스 파일
+├── test/                                 # 테스트 파일들이 포함된 디렉토리
+│   └── credit_screen_test.cpp            # 크레딧 화면 테스트를 위한 소스 파일
+├── .gitignore                            # Git에서 추적하지 않을 파일 또는 디렉토리를 명시
+├── Makefile                              # 프로젝트 빌드 설정 파일
+├── README.md                             # 프로젝트에 대한 설명서
+└── run                                   # 컴파일된 실행 파일
 ```
 </div>
   
