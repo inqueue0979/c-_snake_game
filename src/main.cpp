@@ -25,7 +25,7 @@ int main() {
 
     MainMenu menu;
     SnakeMap snakeMap(25);
-    snakeMap.loadMap(level_1);
+    snakeMap.loadMap(level_test);
     int choice = menu.display();
 
     switch (choice) {
