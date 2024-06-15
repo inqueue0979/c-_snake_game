@@ -2,6 +2,8 @@
 #include "data.h"
 #include <iostream>
 
+const char *block_data[10] = {" ", "■", "■", "◉", "○", "G", "P", "☐", " ", " "};
+
 SnakeMap::SnakeMap(int size) : size(size) {
     // 2D 배열 동적 할당
     map = new int*[size];
@@ -48,22 +50,15 @@ void SnakeMap::drawMap(int start_x = 3, int start_y = 1) {
         mvwprintw(mapWin, i + start_y, (width - text_title[i].length()) / 2, "%s", text_title[i].c_str());
     }
 
-    start_y += 8;
+    start_y += 8; // 마진
     mvwprintw(mapWin, start_y, (width - 7) / 2, "%s", "Level 1");
-
-    start_y += 3;
-
-
+    start_y += 3; // 마진
 
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            if (map[i][j] == 1 || map[i][j] == 2) {
-                wattron(mapWin, COLOR_PAIR(2));
-                mvwprintw(mapWin, i + start_y, j * 2 + start_x, "■"); // 가로로 한 칸씩 띄워서 출력
-                wattroff(mapWin, COLOR_PAIR(2));
-            } else {
-                mvwprintw(mapWin, i + start_y, j * 2 + start_x, " "); // 가로로 한 칸씩 띄워서 출력
-            }
+            wattron(mapWin, COLOR_PAIR(2));
+            mvwprintw(mapWin, i + start_y, j * 2 + start_x, (const char *)block_data[map[i][j]]); // 가로로 한 칸씩 띄워서 출력
+            wattroff(mapWin, COLOR_PAIR(2));
         }
     }
     wrefresh(mapWin);
