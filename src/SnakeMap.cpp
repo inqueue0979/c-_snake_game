@@ -39,10 +39,10 @@ void SnakeMap::loadMap(int mapData[25][25]) {
     }
 }
 
-void SnakeMap::drawMap() {
+void SnakeMap::drawMap(int start_x = 3, int start_y = 1) {
     // 테두리 그리기
     box(mapWin, 0, 0);
-    int start_x = 1, start_y = 1, width = 84;
+    int width = 84;
 
     for (int i = 0; i < 8; ++i) {
         mvwprintw(mapWin, i + start_y, (width - text_title[i].length()) / 2, "%s", text_title[i].c_str());
@@ -51,7 +51,7 @@ void SnakeMap::drawMap() {
     start_y += 8;
     mvwprintw(mapWin, start_y, (width - 7) / 2, "%s", "Level 1");
 
-    start_y += 2;
+    start_y += 3;
 
 
 
