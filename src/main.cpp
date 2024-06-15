@@ -1,8 +1,19 @@
 #include "MainMenu.h"
 #include "SnakeMap.h"
 #include "MapData.h"
+#include <locale.h>
 
 int main() {
+    setlocale(LC_ALL, "");
+    if(LINES < 42 || COLS < 84) {
+        initscr();
+        printw("LARGER TERMINAL REQUIRED\n42x84 LEAST");
+        refresh();
+        getch();
+        endwin();
+        return 0;
+    }
+
     MainMenu menu;
     SnakeMap snakeMap(25);
     snakeMap.loadMap(level_1);
