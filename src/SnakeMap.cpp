@@ -57,7 +57,7 @@ void SnakeMap::drawMap(int start_x = 3, int start_y = 1) {
 
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            if (map[i][j] == 1) {
+            if (map[i][j] == 1 || map[i][j] == 2) {
                 wattron(mapWin, COLOR_PAIR(2));
                 mvwprintw(mapWin, i + start_y, j * 2 + start_x, "■"); // 가로로 한 칸씩 띄워서 출력
                 wattroff(mapWin, COLOR_PAIR(2));
