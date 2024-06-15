@@ -50,7 +50,7 @@ CPP_SNAKE_GAME/
       <td>
         <br><strong>2차원 배열로 이루어진 Snake Map 구현</strong><br><br>(1) Map의 구성 요소<br>> Data 처리 방법, Map Data Import/Export 등<br><br>(2) Map과 다른 객체와의 상호작용<br>> Snake, Items, … <br>&nbsp;
       </td>
-      <td style="text-align: center;"><strong>⚠️</strong></td>
+      <td style="text-align: center;"><strong>✅</strong></td>
     </tr>
     <tr>
       <td style="text-align: center;"><strong>2</strong></td>
