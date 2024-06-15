@@ -1,4 +1,5 @@
 #include "SnakeMap.h"
+#include "data.h"
 #include <iostream>
 
 SnakeMap::SnakeMap(int size) : size(size) {
@@ -41,15 +42,27 @@ void SnakeMap::loadMap(int mapData[25][25]) {
 void SnakeMap::drawMap() {
     // 테두리 그리기
     box(mapWin, 0, 0);
+    int start_x = 1, start_y = 1, width = 84;
+
+    for (int i = 0; i < 8; ++i) {
+        mvwprintw(mapWin, i + start_y, (width - text_title[i].length()) / 2, "%s", text_title[i].c_str());
+    }
+
+    start_y += 8;
+    mvwprintw(mapWin, start_y, (width - 7) / 2, "%s", "Level 1");
+
+    start_y += 2;
+
+
 
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
             if (map[i][j] == 1) {
                 wattron(mapWin, COLOR_PAIR(2));
-                mvwprintw(mapWin, i + 1, j * 2 + 1, "#"); // 가로로 한 칸씩 띄워서 출력
+                mvwprintw(mapWin, i + start_y, j * 2 + start_x, "■"); // 가로로 한 칸씩 띄워서 출력
                 wattroff(mapWin, COLOR_PAIR(2));
             } else {
-                mvwprintw(mapWin, i + 1, j * 2 + 1, " "); // 가로로 한 칸씩 띄워서 출력
+                mvwprintw(mapWin, i + start_y, j * 2 + start_x, " "); // 가로로 한 칸씩 띄워서 출력
             }
         }
     }
