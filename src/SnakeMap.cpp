@@ -68,3 +68,13 @@ void SnakeMap::drawMap(int start_x = 3, int start_y = 1) {
     }
     wrefresh(mapWin);
 }
+
+int** SnakeMap::getMap() const {
+    return map;
+}
+
+void SnakeMap::setMap(int x, int y, int value) {
+    if (x >= 0 && x < size && y >= 0 && y < size) {
+        map[y][x] = value;
+    }
+}
