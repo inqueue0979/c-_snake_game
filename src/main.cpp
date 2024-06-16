@@ -36,12 +36,8 @@ int main() {
 
     switch (choice) {
         case 1: // 게임 시작
-            while(true)
-            {
-                snakeMap.drawMap(3, 1);
-                scoreBoard.display();
-                getch();
-            }
+            snakeMap.drawMap(3, 1);
+            scoreBoard.display();
             getch();
             endwin();
             break;
