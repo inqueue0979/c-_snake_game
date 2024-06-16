@@ -3,7 +3,7 @@
 #include <iostream>
 #include <ncurses.h>
 
-const char *block_data[10] = {" ", "■", "○", "◉", "○", "G", "P", "☐", " ", " "};
+const char *block_data[10] = {" ", "■", "■", "◉", "○", "G", "P", "☐", " ", " "};
 
 SnakeMap::SnakeMap(int size, WINDOW* externalWin) : size(size), mapWin(externalWin) {
     // 2D 배열 동적 할당

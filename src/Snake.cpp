@@ -5,6 +5,11 @@
 
 Snake::Snake(int startX, int startY, SnakeMap& snakeMap, ScoreBoard& scoreBoard) 
     : snakeMap(snakeMap), scoreBoard(scoreBoard), currentDirection(RIGHT) {
+    reset(startX, startY); // 초기화 로직을 reset 메서드로 이동
+}
+
+void Snake::reset(int startX, int startY) {
+    body.clear();
     body.push_front(std::make_pair(startY, startX));     // 머리
     body.push_back(std::make_pair(startY, startX - 1));  // 몸통 첫 번째 부분
     body.push_back(std::make_pair(startY, startX - 2));  // 몸통 두 번째 부분
@@ -13,6 +18,19 @@ Snake::Snake(int startX, int startY, SnakeMap& snakeMap, ScoreBoard& scoreBoard)
         snakeMap.setMap(segment.first, segment.second, 4); // Snake body on the map
     }
     snakeMap.setMap(body.front().first, body.front().second, 3); // Snake head on the map
+}
+
+// 복사 생성자
+Snake::Snake(const Snake& other)
+    : snakeMap(other.snakeMap), scoreBoard(other.scoreBoard), body(other.body), currentDirection(other.currentDirection) {}
+
+// 복사 할당 연산자
+Snake& Snake::operator=(const Snake& other) {
+    if (this != &other) {
+        body = other.body;
+        currentDirection = other.currentDirection;
+    }
+    return *this;
 }
 
 void Snake::changeDirection(Direction newDirection) {
@@ -57,6 +75,9 @@ void Snake::move(Gate& gateManager) {
             scoreBoard.addScore(20);
             scoreBoard.addGrowthEaten(1);
             scoreBoard.addBodyCurrentLength(1);
+            if (scoreBoard.getBodyCurrentLength() > scoreBoard.getBodyLongestLength()) {
+                scoreBoard.setBodyLongestLength(scoreBoard.getBodyCurrentLength());
+            }
             break;
         case 6: // Poison item
             removeBodySegment();
@@ -66,6 +87,7 @@ void Snake::move(Gate& gateManager) {
             scoreBoard.addBodyCurrentLength(-1);
             break;
         case 7: // Gate
+            scoreBoard.addGateEaten(1);
             handleGate(gateManager);
             return; // 게이트로 이동 후 추가 이동 불필요
     }
@@ -85,10 +107,39 @@ void Snake::handleGate(Gate& gateManager) {
     auto exitGate = gateManager.getGateExit(gateIndex);
     Direction exitDirection = gateManager.getExitDirection(exitGate, currentDirection, snakeMap);
 
-    body.push_front(exitGate);
-    snakeMap.setMap(exitGate.first, exitGate.second, 3); // 새로운 머리 위치 업데이트
-    snakeMap.setMap(body[1].first, body[1].second, 2); // 이전 머리를 몸통으로 업데이트
-    body.pop_back();
+    // 게이트를 통과하기 전에 현재 위치의 뱀을 제거
+    for (const auto& segment : body) {
+        snakeMap.setMap(segment.first, segment.second, 0);
+    }
+
+    body.clear();
+
+    int nextX = exitGate.second;
+    int nextY = exitGate.first;
+
+    switch (exitDirection) {
+        case UP:
+            nextY -= 1; // 한 칸 위로
+            break;
+        case DOWN:
+            nextY += 1; // 한 칸 아래로
+            break;
+        case LEFT:
+            nextX -= 1; // 한 칸 왼쪽으로
+            break;
+        case RIGHT:
+            nextX += 1; // 한 칸 오른쪽으로
+            break;
+    }
+
+    body.push_front(std::make_pair(nextY, nextX)); // 새로운 머리 위치
+    body.push_back(std::make_pair(nextY, nextX - 1));  // 몸통 첫 번째 부분
+    body.push_back(std::make_pair(nextY, nextX - 2));  // 몸통 두 번째 부분
+
+    for (const auto& segment : body) {
+        snakeMap.setMap(segment.first, segment.second, 4); // Snake body on the map
+    }
+    snakeMap.setMap(body.front().first, body.front().second, 3); // Snake head on the map
 
     currentDirection = exitDirection; // 새로운 방향 설정
 }
