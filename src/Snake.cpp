@@ -6,6 +6,8 @@
 Snake::Snake(int startX, int startY, SnakeMap& snakeMap, ScoreBoard& scoreBoard) 
     : snakeMap(snakeMap), scoreBoard(scoreBoard), currentDirection(RIGHT) {
     reset(startX, startY); // 초기화 로직을 reset 메서드로 이동
+    gameOver = false;
+    snakeLength = 3;
 }
 
 void Snake::reset(int startX, int startY) {
@@ -40,6 +42,9 @@ void Snake::changeDirection(Direction newDirection) {
         (currentDirection == RIGHT && newDirection != LEFT)) {
         currentDirection = newDirection;
     }
+    else {
+        gameOver = true;
+    }
 }
 
 void Snake::move(Gate& gateManager) {
@@ -63,6 +68,7 @@ void Snake::move(Gate& gateManager) {
     }
 
     if (!isValidMove(nextX, nextY)) {
+        gameOver = true;
         return; // Invalid move, do not proceed
     }
 
@@ -72,6 +78,7 @@ void Snake::move(Gate& gateManager) {
         case 5: // Growth item
             addBodySegment();
             snakeMap.setMap(nextY, nextX, 0);
+            snakeLength++;
             scoreBoard.addScore(20);
             scoreBoard.addGrowthEaten(1);
             scoreBoard.addBodyCurrentLength(1);
@@ -82,9 +89,13 @@ void Snake::move(Gate& gateManager) {
         case 6: // Poison item
             removeBodySegment();
             snakeMap.setMap(nextY, nextX, 0);
+            snakeLength--;
             scoreBoard.addScore(-10);
             scoreBoard.addPoisonEaten(1);
             scoreBoard.addBodyCurrentLength(-1);
+
+            if(snakeLength < 3)
+                gameOver = true;
             break;
         case 7: // Gate
             scoreBoard.addGateEaten(1);
@@ -172,6 +183,11 @@ std::pair<int, int> Snake::getHeadPosition() const {
 
 const std::deque<std::pair<int, int>>& Snake::getBody() const {
     return body;
+}
+
+bool Snake::isGameOver() const
+{
+    return gameOver;
 }
 
 bool Snake::isValidMove(int nextX, int nextY) {
