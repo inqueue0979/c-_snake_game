@@ -8,7 +8,9 @@ public:
     SnakeMap(int size);
     ~SnakeMap();
     void loadMap(int mapData[25][25]);
-    void drawMap();
+    void drawMap(int start_x, int start_y);
+    int** getMap() const;
+    void setMap(int x, int y, int value);
 
 private:
     int size;
