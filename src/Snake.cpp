@@ -5,6 +5,11 @@
 
 Snake::Snake(int startX, int startY, SnakeMap& snakeMap, ScoreBoard& scoreBoard) 
     : snakeMap(snakeMap), scoreBoard(scoreBoard), currentDirection(RIGHT) {
+    reset(startX, startY); // 초기화 로직을 reset 메서드로 이동
+}
+
+void Snake::reset(int startX, int startY) {
+    body.clear();
     body.push_front(std::make_pair(startY, startX));     // 머리
     body.push_back(std::make_pair(startY, startX - 1));  // 몸통 첫 번째 부분
     body.push_back(std::make_pair(startY, startX - 2));  // 몸통 두 번째 부분
@@ -13,6 +18,19 @@ Snake::Snake(int startX, int startY, SnakeMap& snakeMap, ScoreBoard& scoreBoard)
         snakeMap.setMap(segment.first, segment.second, 4); // Snake body on the map
     }
     snakeMap.setMap(body.front().first, body.front().second, 3); // Snake head on the map
+}
+
+// 복사 생성자
+Snake::Snake(const Snake& other)
+    : snakeMap(other.snakeMap), scoreBoard(other.scoreBoard), body(other.body), currentDirection(other.currentDirection) {}
+
+// 복사 할당 연산자
+Snake& Snake::operator=(const Snake& other) {
+    if (this != &other) {
+        body = other.body;
+        currentDirection = other.currentDirection;
+    }
+    return *this;
 }
 
 void Snake::changeDirection(Direction newDirection) {
@@ -85,7 +103,6 @@ void Snake::move(Gate& gateManager) {
 
 void Snake::handleGate(Gate& gateManager) {
     auto head = body.front();
-    auto tail = body.back();
     int gateIndex = (gateManager.getGateEntry(0) == head) ? 0 : 1;
     auto exitGate = gateManager.getGateExit(gateIndex);
     Direction exitDirection = gateManager.getExitDirection(exitGate, currentDirection, snakeMap);
@@ -94,6 +111,8 @@ void Snake::handleGate(Gate& gateManager) {
     for (const auto& segment : body) {
         snakeMap.setMap(segment.first, segment.second, 0);
     }
+
+    body.clear();
 
     int nextX = exitGate.second;
     int nextY = exitGate.first;
@@ -113,18 +132,15 @@ void Snake::handleGate(Gate& gateManager) {
             break;
     }
 
-    // 새로운 위치에서 뱀의 몸체를 갱신
-    body.push_front(std::make_pair(nextY, nextX));
-    snakeMap.setMap(nextY, nextX, 3); // 새로운 머리 위치 업데이트
+    body.push_front(std::make_pair(nextY, nextX)); // 새로운 머리 위치
+    body.push_back(std::make_pair(nextY, nextX - 1));  // 몸통 첫 번째 부분
+    body.push_back(std::make_pair(nextY, nextX - 2));  // 몸통 두 번째 부분
 
-    // 이동한 머리를 제외한 나머지 몸체를 업데이트
-    for (size_t i = 1; i < body.size(); ++i) {
-        auto segment = body[i];
-        snakeMap.setMap(segment.first, segment.second, 4);
+    for (const auto& segment : body) {
+        snakeMap.setMap(segment.first, segment.second, 4); // Snake body on the map
     }
+    snakeMap.setMap(body.front().first, body.front().second, 3); // Snake head on the map
 
-    body.pop_back();
-    snakeMap.setMap(tail.first, tail.second, 0);
     currentDirection = exitDirection; // 새로운 방향 설정
 }
 
