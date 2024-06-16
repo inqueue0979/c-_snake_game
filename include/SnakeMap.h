@@ -2,6 +2,7 @@
 #define SNAKEMAP_H
 
 #include <ncurses.h>
+#include "SnakePosition.h"
 
 class SnakeMap {
 public:
