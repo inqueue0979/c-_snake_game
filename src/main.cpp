@@ -5,6 +5,7 @@
 #include "Snake.h"
 #include "Item.h"
 #include "Gate.h"
+#include "data.h"
 #include <locale.h>
 #include <thread>
 #include <iostream>
@@ -102,9 +103,27 @@ int main() {
         while (true) {
             if(snake.isGameOver())
             {
-                mvwprintw(mainWin, 20, 30, "GAME OVER");
+                // 전체 화면 지우기
+                werase(mainWin);
+                box(mainWin, 0, 0);
+                for(int i = 0; i < 8; i++)
+                {
+                    mvwprintw(mainWin, 12 + i, 15, game_over_title[i].c_str());
+                }
+
                 wrefresh(mainWin);
                 std::this_thread::sleep_for(std::chrono::seconds(2));
+                
+                werase(mainWin);
+                box(mainWin, 0, 0);
+                // data.cpp에 있는 name_title들
+                for(int i = 0; i < 3; i++)
+                    for(int j = 0; j < 7; j++)
+                        mvwprintw(mainWin, 5 + j + i * 7, 15, name_title[i][j].c_str());
+
+                wrefresh(mainWin);
+                std::this_thread::sleep_for(std::chrono::seconds(2));
+
                 break;
             }
             processInput(snake);
