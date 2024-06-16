@@ -2,6 +2,8 @@
 #include "data.h"
 #include <iostream>
 
+const char *block_data[10] = {" ", "■", "■", "◉", "○", "G", "P", "☐", " ", " "};
+
 SnakeMap::SnakeMap(int size) : size(size) {
     // 2D 배열 동적 할당
     map = new int*[size];
@@ -39,32 +41,35 @@ void SnakeMap::loadMap(int mapData[25][25]) {
     }
 }
 
-void SnakeMap::drawMap() {
+void SnakeMap::drawMap(int start_x = 3, int start_y = 1) {
     // 테두리 그리기
     box(mapWin, 0, 0);
-    int start_x = 1, start_y = 1, width = 84;
+    int width = 84;
 
     for (int i = 0; i < 8; ++i) {
         mvwprintw(mapWin, i + start_y, (width - text_title[i].length()) / 2, "%s", text_title[i].c_str());
     }
 
-    start_y += 8;
+    start_y += 8; // 마진
     mvwprintw(mapWin, start_y, (width - 7) / 2, "%s", "Level 1");
-
-    start_y += 2;
-
-
+    start_y += 3; // 마진
 
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            if (map[i][j] == 1) {
-                wattron(mapWin, COLOR_PAIR(2));
-                mvwprintw(mapWin, i + start_y, j * 2 + start_x, "■"); // 가로로 한 칸씩 띄워서 출력
-                wattroff(mapWin, COLOR_PAIR(2));
-            } else {
-                mvwprintw(mapWin, i + start_y, j * 2 + start_x, " "); // 가로로 한 칸씩 띄워서 출력
-            }
+            wattron(mapWin, COLOR_PAIR(2));
+            mvwprintw(mapWin, i + start_y, j * 2 + start_x, (const char *)block_data[map[i][j]]); // 가로로 한 칸씩 띄워서 출력
+            wattroff(mapWin, COLOR_PAIR(2));
         }
     }
     wrefresh(mapWin);
+}
+
+int** SnakeMap::getMap() const {
+    return map;
+}
+
+void SnakeMap::setMap(int x, int y, int value) {
+    if (x >= 0 && x < size && y >= 0 && y < size) {
+        map[y][x] = value;
+    }
 }
