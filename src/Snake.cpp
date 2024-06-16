@@ -47,6 +47,20 @@ void Snake::move() {
         return; // Invalid move, do not proceed
     }
 
+    int inFrontHead = whatIsInFrontOf(nextX, nextY);
+
+    switch (inFrontHead) {
+        case 5: // Growth item
+            addBodySegment();
+            snakeMap.setMap(nextY, nextX, 0);
+            break;
+        case 6: // Poison item
+            removeBodySegment();
+            snakeMap.setMap(nextY, nextX, 0);
+            break;
+    }
+
+
     body.push_front(std::make_pair(nextY, nextX));
     snakeMap.setMap(body.front().first, body.front().second, 3); // 머리 위치 업데이트
     snakeMap.setMap(body[1].first, body[1].second, 4); // 이전 머리를 몸통으로 업데이트
@@ -54,6 +68,20 @@ void Snake::move() {
     auto tail = body.back();
     snakeMap.setMap(tail.first, tail.second, 0); // 꼬리 제거
     body.pop_back();
+}
+
+void Snake::addBodySegment() {
+    auto tail = body.back();
+    body.push_back(tail); // 기존 꼬리를 복제하여 새 몸통을 추가
+    snakeMap.setMap(tail.first, tail.second, 4); // 새 몸통을 맵에 추가
+}
+
+void Snake::removeBodySegment() {
+    if (body.size() > 1) {
+        auto tail = body.back();
+        body.pop_back(); // 꼬리 제거
+        snakeMap.setMap(tail.first, tail.second, 0); // 맵에서 꼬리 제거
+    }
 }
 
 std::pair<int, int> Snake::getHeadPosition() const {
@@ -70,6 +98,14 @@ bool Snake::isValidMove(int nextX, int nextY) {
         return false; // Collision with wall or snake body
     }
     return true;
+}
+
+int Snake::whatIsInFrontOf(int nextX, int nextY) {
+    int mapElement = snakeMap.getMap()[nextY][nextX];
+    if (mapElement == 5 || mapElement == 6) {
+        return mapElement; // Collision with wall or snake body
+    }
+    return 0;
 }
 
 bool Snake::isCollision(int x, int y) {

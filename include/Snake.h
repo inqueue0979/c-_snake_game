@@ -12,14 +12,15 @@ public:
     Snake(int startX, int startY, SnakeMap& snakeMap);
     void changeDirection(Direction newDirection);
     void move();
-    void render();
-    void addBodySegment(); // 새 몸통을 추가하는 메서드
+    void addBodySegment();
+    void removeBodySegment();
     std::pair<int, int> getHeadPosition() const;
     const std::deque<std::pair<int, int>>& getBody() const;
 
 private:
     bool isValidMove(int nextX, int nextY);
     bool isCollision(int x, int y);
+    int whatIsInFrontOf(int nextX, int nextY);
 
     SnakeMap& snakeMap;
     std::deque<std::pair<int, int>> body;

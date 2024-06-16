@@ -68,6 +68,7 @@ int main() {
     Snake snake(12, 12, snakeMap); // 초기 스네이크 위치 설정
 
     int choice = menu.display();
+    snakeMap.loadMap(level_test); // 맵 리셋
 
     switch (choice) {
         case 1: // 게임 시작
@@ -77,7 +78,6 @@ int main() {
                 snake.move();
 
                 // 스네이크 위치 갱신 후 맵 다시 그리기
-                snakeMap.loadMap(level_test); // 맵 리셋
                 for (const auto& part : snake.getBody()) {
                     snakeMap.setMap(part.first, part.second, 2); // 2는 스네이크 몸체를 의미
                 }
