@@ -109,6 +109,8 @@ int main() {
                 scoreBoard.addScore(1);
                 tickCount++;
                 gateTimer++;
+                tickCount %= 10000; // 오버플로우 방지
+                tickCount % 4 == 0 ? scoreBoard.addGameTimer(1) : scoreBoard.addGameTimer(0); // 1초마다 게임 타이머 증가
             }
             endwin();
             break;
