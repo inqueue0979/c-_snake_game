@@ -54,14 +54,14 @@ CPP_SNAKE_GAME/
       <td>
         <br><strong>Snake 구현 ( *규칙1 준수 )</strong><br><br>(1) 키 입력 처리 방법 (기본)<br>(2) Tick 에 대한 변화 구현<br>&nbsp;
       </td>
-      <td style="text-align: center;"><strong>❌</strong></td>
+      <td style="text-align: center;"><strong>✅</strong></td>
     </tr>
     <tr>
       <td style="text-align: center;"><strong>3</strong></td>
       <td>
         <br><strong>Growth Item과 Poison Item 구현 ( *규칙2 준수 )</strong><br><br>(1) Map에 Growth Item과 Poison Item 출현<br>(2) Snake와 Item의 상호작용 처리<br>&nbsp;
       </td>
-      <td style="text-align: center;"><strong>❌</strong></td>
+      <td style="text-align: center;"><strong>✅</strong></td>
     </tr>
     <tr>
       <td style="text-align: center;"><strong>4</strong></td>
