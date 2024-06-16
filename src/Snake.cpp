@@ -57,6 +57,9 @@ void Snake::move(Gate& gateManager) {
             scoreBoard.addScore(20);
             scoreBoard.addGrowthEaten(1);
             scoreBoard.addBodyCurrentLength(1);
+            if (scoreBoard.getBodyCurrentLength() > scoreBoard.getBodyLongestLength()) {
+                scoreBoard.setBodyLongestLength(scoreBoard.getBodyCurrentLength());
+            }
             break;
         case 6: // Poison item
             removeBodySegment();
