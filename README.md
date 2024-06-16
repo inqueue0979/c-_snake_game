@@ -7,28 +7,35 @@
   
 ```plaintext
 CPP_SNAKE_GAME/
-├── include/                              # 헤더 파일들이 포함된 디렉토리
-│   ├── data.h                            # 게임 내 뱀 아트와 텍스트 타이틀 데이터를 포함
-│   ├── InputHandler.h                    # 입력 처리를 위한 클래스 헤더 파일
-│   ├── MainMenu.h                        # 메인 메뉴 클래스를 위한 헤더 파일
-│   ├── MapData.h                         # 맵 데이터를 포함하는 헤더 파일
-│   ├── Snake.h                           # 뱀 클래스 헤더 파일
-│   └── SnakeMap.h                        # 맵 클래스를 위한 헤더 파일
-├── obj/                                  # 오브젝트 파일들이 저장될 디렉토리 (컴파일된 중간 파일들)
-├── src/                                  # 소스 파일들이 포함된 디렉토리
-│   ├── data.cpp                          # 게임 내 뱀 아트와 텍스트 타이틀 데이터를 정의
-│   ├── InputHandler.cpp                  # 입력 처리를 구현하는 소스 파일
-│   ├── main.cpp                          # 프로그램의 진입점
-│   ├── MainMenu.cpp                      # 메인 메뉴 클래스를 구현하는 소스 파일
-│   ├── MapData.cpp                       # 맵 데이터를 구현하는 소스 파일
-│   ├── Snake.cpp                         # 뱀 클래스를 구현하는 소스 파일
-│   └── SnakeMap.cpp                      # 맵 클래스를 구현하는 소스 파일
-├── test/                                 # 테스트 파일들이 포함된 디렉토리
-│   └── credit_screen_test.cpp            # 크레딧 화면 테스트를 위한 소스 파일
-├── .gitignore                            # Git에서 추적하지 않을 파일 또는 디렉토리를 명시
-├── Makefile                              # 프로젝트 빌드 설정 파일
-├── README.md                             # 프로젝트에 대한 설명서
-└── run                                   # 컴파일된 실행 파일
+├── include/                 # 헤더 파일
+│   ├── data.h               # 뱀과 타이틀 아트 데이터 포함
+│   ├── Direction.h          # 방향에 대한 열거형
+│   ├── Gate.h               # Gate 클래스 정의
+│   ├── InputHandler.h       # InputHandler 클래스 정의
+│   ├── Item.h               # Item 클래스 정의
+│   ├── MainMenu.h           # MainMenu 클래스 정의
+│   ├── MapData.h            # 맵 데이터
+│   ├── ScoreBoard.h         # ScoreBoard 클래스 정의
+│   ├── Snake.h              # Snake 클래스 정의
+│   └── SnakeMap.h           # SnakeMap 클래스 정의
+├── obj/                     # 컴파일된 오브젝트 파일
+├── src/                     # 소스 파일
+│   ├── data.cpp             # data.h 내용 구현
+│   ├── Gate.cpp             # Gate 클래스 구현
+│   ├── InputHandler.cpp     # InputHandler 클래스 구현
+│   ├── Item.cpp             # Item 클래스 구현
+│   ├── main.cpp             # 메인 게임 루프와 프로그램 시작점
+│   ├── MainMenu.cpp         # MainMenu 클래스 구현
+│   ├── MapData.cpp          # 맵 데이터 로딩 구현
+│   ├── ScoreBoard.cpp       # ScoreBoard 클래스 구현
+│   ├── Snake.cpp            # Snake 클래스 구현
+│   └── SnakeMap.cpp         # SnakeMap 클래스 구현
+├── test/                    # 테스트 파일
+│   └── credit_screen_test.cpp # 크레딧 화면 테스트
+├── .gitignore               # Git ignore 파일
+├── Makefile                 # 프로젝트 빌드를 위한 Makefile
+├── README.md                # 프로젝트 README 파일
+└── run                      # 컴파일된 실행 파일
 ```
 </div>
   
