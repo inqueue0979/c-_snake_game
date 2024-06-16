@@ -73,3 +73,12 @@ void SnakeMap::setMap(int x, int y, int value) {
         map[y][x] = value;
     }
 }
+
+void SnakeMap::setSnakePosition(int x, int y) {
+    snakePosition.setPosX(x);
+    snakePosition.setPosY(y);
+}
+
+SnakePosition SnakeMap::getSnakePosition() const {
+    return snakeposition;
+}
