@@ -64,29 +64,29 @@ Direction Gate::getExitDirection(const std::pair<int, int>& entryPosition, Direc
     if (x == 0) return RIGHT; // 좌측 벽
     if (x == size - 1) return LEFT; // 우측 벽
 
-    // 가운데 벽 처리
-    // switch (entryDirection) {
-    //     case UP:
-    //         if (snakeMap.getMap()[y - 1][x] == 0) return UP;
-    //         if (snakeMap.getMap()[y][x + 1] == 0) return RIGHT;
-    //         if (snakeMap.getMap()[y][x - 1] == 0) return LEFT;
-    //         return DOWN;
-    //     case DOWN:
-    //         if (snakeMap.getMap()[y + 1][x] == 0) return DOWN;
-    //         if (snakeMap.getMap()[y][x + 1] == 0) return RIGHT;
-    //         if (snakeMap.getMap()[y][x - 1] == 0) return LEFT;
-    //         return UP;
-    //     case LEFT:
-    //         if (snakeMap.getMap()[y][x - 1] == 0) return LEFT;
-    //         if (snakeMap.getMap()[y - 1][x] == 0) return UP;
-    //         if (snakeMap.getMap()[y + 1][x] == 0) return DOWN;
-    //         return RIGHT;
-    //     case RIGHT:
-    //         if (snakeMap.getMap()[y][x + 1] == 0) return RIGHT;
-    //         if (snakeMap.getMap()[y - 1][x] == 0) return UP;
-    //         if (snakeMap.getMap()[y + 1][x] == 0) return DOWN;
-    //         return LEFT;
-    // }
+    //가운데 벽 처리
+    switch (entryDirection) {
+        case UP:
+            if (snakeMap.getMap()[y - 1][x] == 0) return UP;
+            if (snakeMap.getMap()[y][x + 1] == 0) return RIGHT;
+            if (snakeMap.getMap()[y][x - 1] == 0) return LEFT;
+            return DOWN;
+        case DOWN:
+            if (snakeMap.getMap()[y + 1][x] == 0) return DOWN;
+            if (snakeMap.getMap()[y][x + 1] == 0) return RIGHT;
+            if (snakeMap.getMap()[y][x - 1] == 0) return LEFT;
+            return UP;
+        case LEFT:
+            if (snakeMap.getMap()[y][x - 1] == 0) return LEFT;
+            if (snakeMap.getMap()[y - 1][x] == 0) return UP;
+            if (snakeMap.getMap()[y + 1][x] == 0) return DOWN;
+            return RIGHT;
+        case RIGHT:
+            if (snakeMap.getMap()[y][x + 1] == 0) return RIGHT;
+            if (snakeMap.getMap()[y - 1][x] == 0) return UP;
+            if (snakeMap.getMap()[y + 1][x] == 0) return DOWN;
+            return LEFT;
+    }
 
     return UP; // 기본값
 }
