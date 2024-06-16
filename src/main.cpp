@@ -100,6 +100,13 @@ int main() {
         tickCount = 0;
         gateTimer = 0;
         while (true) {
+            if(snake.isGameOver())
+            {
+                mvwprintw(mainWin, 20, 30, "GAME OVER");
+                wrefresh(mainWin);
+                std::this_thread::sleep_for(std::chrono::seconds(2));
+                break;
+            }
             processInput(snake);
             snake.move(gateManager);
 

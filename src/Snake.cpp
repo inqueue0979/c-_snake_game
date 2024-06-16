@@ -6,6 +6,7 @@
 Snake::Snake(int startX, int startY, SnakeMap& snakeMap, ScoreBoard& scoreBoard) 
     : snakeMap(snakeMap), scoreBoard(scoreBoard), currentDirection(RIGHT) {
     reset(startX, startY); // 초기화 로직을 reset 메서드로 이동
+    gameOver = false;
 }
 
 void Snake::reset(int startX, int startY) {
@@ -40,6 +41,9 @@ void Snake::changeDirection(Direction newDirection) {
         (currentDirection == RIGHT && newDirection != LEFT)) {
         currentDirection = newDirection;
     }
+    else {
+        gameOver = true;
+    }
 }
 
 void Snake::move(Gate& gateManager) {
@@ -63,6 +67,7 @@ void Snake::move(Gate& gateManager) {
     }
 
     if (!isValidMove(nextX, nextY)) {
+        gameOver = true;
         return; // Invalid move, do not proceed
     }
 
@@ -164,6 +169,11 @@ std::pair<int, int> Snake::getHeadPosition() const {
 
 const std::deque<std::pair<int, int>>& Snake::getBody() const {
     return body;
+}
+
+bool Snake::isGameOver() const
+{
+    return gameOver;
 }
 
 bool Snake::isValidMove(int nextX, int nextY) {
