@@ -1,19 +1,19 @@
-#include "Snakeposion.h"
+#include "SnakePosition.h"
 
-Snakeposion::Snakeposion(int x, int y) : posX(x), posY(y) {}
+SnakePosition::SnakePostiion(int x, int y) : posX(x), posY(y) {}
 
-int Snakeposion::getPosX() const {
+int SnakePosition::getPosX() const {
     return posX;
 }
 
-int Snakeposion::getPosY() const {
+int SnakePosition::getPosY() const {
     return posY;
 }
 
-void Snakeposion::setPosX(int x) {
+void SnakePosition::setPosX(int x) {
     posX = x;
 }
 
-void Snakeposion::setPosY(int y) {
+void SnakePosition::setPosY(int y) {
     posY = y;
 }
