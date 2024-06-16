@@ -63,7 +63,7 @@ int main() {
 
     MainMenu menu;
     SnakeMap snakeMap(25, mainWin);
-    snakeMap.loadMap(level_test);
+    snakeMap.loadMap(level_1);
 
     ScoreBoard scoreBoard(mainWin, 28, 24, 54, 12); // 오른쪽에 위치하도록 설정 (start_x=54, start_y=12)
     Snake snake(12, 12, snakeMap); // 초기 스네이크 위치 설정
@@ -71,7 +71,6 @@ int main() {
 
     int choice = menu.display();
     int tickCount = 0;
-    snakeMap.loadMap(level_test); // 맵 리셋
 
     switch (choice) {
         case 1: // 게임 시작
