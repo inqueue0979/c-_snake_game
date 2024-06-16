@@ -61,3 +61,8 @@ void SnakeMap::setMap(int x, int y, int value) {
         map[x][y] = value;
     }
 }
+
+int SnakeMap::getSize() const
+{
+    return size;
+}

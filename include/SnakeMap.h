@@ -11,6 +11,7 @@ public:
     void drawMap(int start_x = 3, int start_y = 1);
     int** getMap() const;
     void setMap(int x, int y, int value);
+    int getSize() const;
 
 private:
     int** map;

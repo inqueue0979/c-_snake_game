@@ -3,6 +3,7 @@
 #include "MapData.h"
 #include "ScoreBoard.h"
 #include "Snake.h"
+#include "Item.h"
 #include <locale.h>
 #include <thread>
 #include <iostream>
@@ -62,17 +63,19 @@ int main() {
 
     MainMenu menu;
     SnakeMap snakeMap(25, mainWin);
-    snakeMap.loadMap(level_test);
+    snakeMap.loadMap(level_1);
 
     ScoreBoard scoreBoard(mainWin, 28, 24, 54, 12); // 오른쪽에 위치하도록 설정 (start_x=54, start_y=12)
     Snake snake(12, 12, snakeMap); // 초기 스네이크 위치 설정
+    Item itemManager;
 
     int choice = menu.display();
-    snakeMap.loadMap(level_test); // 맵 리셋
+    int tickCount = 0;
 
     switch (choice) {
         case 1: // 게임 시작
             nodelay(stdscr, TRUE); // 비차단 입력 설정
+            tickCount = 0;
             while (true) {
                 processInput(snake);
                 snake.move();
@@ -83,10 +86,16 @@ int main() {
                 }
                 snakeMap.setMap(snake.getHeadPosition().first, snake.getHeadPosition().second, 3); // 3은 스네이크 머리를 의미
 
+                itemManager.updateItems(snakeMap); // 아이템 갱신
+                if (tickCount % 20 == 0) { // 5초마다 아이템 생성
+                    itemManager.generateItems(snakeMap);
+                }
+
                 snakeMap.drawMap(3, 1);
                 scoreBoard.display();
 
                 std::this_thread::sleep_for(std::chrono::milliseconds(250)); // 1초에 4틱 (250ms)
+                tickCount++;
             }
             endwin();
             break;
