@@ -29,12 +29,17 @@ void ScoreBoard::display() {
     werase(scoreWin); // 이전 내용 지우기
     box(scoreWin, 0, 0);
     mvwprintw(scoreWin, 1, (28 - 10) / 2, "SCOREBOARD");
-    mvwprintw(scoreWin, 2, 1, "Score: %d", score);
-    mvwprintw(scoreWin, 3, 1, "B : (%d / %d)", bodyCurrentLength, bodyLongestLength);
-    mvwprintw(scoreWin, 4, 1, "Growth : %d", growthEaten);
-    mvwprintw(scoreWin, 5, 1, "Poison : %d", poisonEaten);
-    mvwprintw(scoreWin, 6, 1, "Gate : %d", gateEaten);
-    mvwprintw(scoreWin, 7, 1, "Time : %d", gameTimer);
+    mvwprintw(scoreWin, 3, 3, "Score: %d", score);
+    mvwprintw(scoreWin, 4, 3, "B : (%d / %d)", bodyCurrentLength, bodyLongestLength);
+    mvwprintw(scoreWin, 5, 3, "Growth : %d", growthEaten);
+    mvwprintw(scoreWin, 6, 3, "Poison : %d", poisonEaten);
+    mvwprintw(scoreWin, 7, 3, "Gate : %d", gateEaten);
+    mvwprintw(scoreWin, 8, 3, "Time : %d", gameTimer);
+    mvwprintw(scoreWin, 10, 3, "----------------------");
+    mvwprintw(scoreWin, 12, (28 - 5) / 2, "GOALS");
+    mvwprintw(scoreWin, 14, 3, "Growth : (%d, %d)", growthEaten, growthEaten);
+    mvwprintw(scoreWin, 15, 3, "Poison : (%d, %d)", poisonEaten, poisonEaten);
+    mvwprintw(scoreWin, 16, 3, "Gate : (%d, %d)", gameTimer, gateEaten);
     wrefresh(scoreWin);
 }
 
