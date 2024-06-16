@@ -93,10 +93,18 @@ void Snake::handleGate(Gate& gateManager) {
     currentDirection = exitDirection; // 새로운 방향 설정
 }
 
-void Snake::addBodySegment() {
-    auto tail = body.back();
-    body.push_back(tail); // 기존 꼬리를 복제하여 새 몸통을 추가
-    snakeMap.setMap(tail.first, tail.second, 4); // 새 몸통을 맵에 추가
+void Snake::addBodySegment(Direction currentDirection) {
+    auto head = body.front();
+    int headX = head.second;
+    int headY = head.first;
+
+    // Find the position to add the new body segment
+    int newX = headX;
+    int newY = headY;
+
+    body.push_front(std::make_pair(newY, newX));
+    snakeMap.setMap(body.front().first, body.front().second, 3); // 머리 위치 업데이트
+    snakeMap.setMap(body[1].first, body[1].second, 4);
 }
 
 void Snake::removeBodySegment() {
