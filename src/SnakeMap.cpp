@@ -1,25 +1,16 @@
 #include "SnakeMap.h"
 #include "data.h"
 #include <iostream>
+#include <ncurses.h>
 
 const char *block_data[10] = {" ", "■", "■", "◉", "○", "G", "P", "☐", " ", " "};
 
-SnakeMap::SnakeMap(int size) : size(size) {
+SnakeMap::SnakeMap(int size, WINDOW* externalWin) : size(size), mapWin(externalWin) {
     // 2D 배열 동적 할당
     map = new int*[size];
     for (int i = 0; i < size; ++i) {
         map[i] = new int[size];
     }
-
-    // ncurses 초기화 및 윈도우 생성
-    initscr();
-    start_color();
-    init_pair(1, COLOR_WHITE, COLOR_BLACK);
-    init_pair(2, COLOR_GREEN, COLOR_BLACK);
-    mapWin = newwin(42, 84, (LINES - 42) / 2, (COLS - 84) / 2);
-    wbkgd(mapWin, COLOR_PAIR(1));
-    box(mapWin, 0, 0);
-    wrefresh(mapWin);
 }
 
 SnakeMap::~SnakeMap() {
@@ -28,9 +19,6 @@ SnakeMap::~SnakeMap() {
         delete[] map[i];
     }
     delete[] map;
-    // 윈도우 종료
-    delwin(mapWin);
-    endwin();
 }
 
 void SnakeMap::loadMap(int mapData[25][25]) {
@@ -41,7 +29,7 @@ void SnakeMap::loadMap(int mapData[25][25]) {
     }
 }
 
-void SnakeMap::drawMap(int start_x = 3, int start_y = 1) {
+void SnakeMap::drawMap(int start_x, int start_y) {
     // 테두리 그리기
     box(mapWin, 0, 0);
     int width = 84;
@@ -70,6 +58,6 @@ int** SnakeMap::getMap() const {
 
 void SnakeMap::setMap(int x, int y, int value) {
     if (x >= 0 && x < size && y >= 0 && y < size) {
-        map[y][x] = value;
+        map[x][y] = value;
     }
 }
