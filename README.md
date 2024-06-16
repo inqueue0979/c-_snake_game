@@ -68,14 +68,14 @@ CPP_SNAKE_GAME/
       <td>
         <br><strong>Gate 구현 ( *규칙3, 4, 5 준수 )</strong><br><br>(1) Wall의 임의 위치에 Gate 출현<br>(2) Snake와 Gate의 상호작용 처리<br>&nbsp;
       </td>
-      <td style="text-align: center;"><strong>❌</strong></td>
+      <td style="text-align: center;"><strong>⚠️</strong></td>
     </tr>
     <tr>
       <td style="text-align: center;"><strong>5</strong></td>
       <td>
         <br><strong>Score Board 구현 ( *규칙6 준수 )</strong><br><br>(1) 게임 점수 표시<br>(2) 미션 달성 시 다음 Map 진행<br>&nbsp;
       </td>
-      <td style="text-align: center;"><strong>❌</strong></td>
+      <td style="text-align: center;"><strong>⚠️</strong></td>
     </tr>
   </tbody>
 </table>
