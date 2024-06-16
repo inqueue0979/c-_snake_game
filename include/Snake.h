@@ -4,25 +4,28 @@
 #include <deque>
 #include <utility>
 #include "SnakeMap.h"
-
-enum Direction { UP, DOWN, LEFT, RIGHT };
+#include "Gate.h"
+#include "ScoreBoard.h"
+#include "Direction.h" // Direction 열거형 포함
 
 class Snake {
 public:
-    Snake(int startX, int startY, SnakeMap& snakeMap);
+    Snake(int startX, int startY, SnakeMap& snakeMap, ScoreBoard& scoreBoard);
     void changeDirection(Direction newDirection);
-    void move();
-    void addBodySegment();
-    void removeBodySegment();
+    void move(Gate& gateManager);
+    void addBodySegment(); // 새 몸통을 추가하는 메서드
+    void removeBodySegment(); // 몸통을 한 칸 제거하는 메서드
     std::pair<int, int> getHeadPosition() const;
     const std::deque<std::pair<int, int>>& getBody() const;
 
 private:
     bool isValidMove(int nextX, int nextY);
-    bool isCollision(int x, int y);
     int whatIsInFrontOf(int nextX, int nextY);
+    bool isCollision(int x, int y);
+    void handleGate(Gate& gateManager);
 
     SnakeMap& snakeMap;
+    ScoreBoard& scoreBoard;
     std::deque<std::pair<int, int>> body;
     Direction currentDirection;
 };
