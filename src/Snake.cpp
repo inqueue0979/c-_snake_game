@@ -1,56 +1,78 @@
 #include "Snake.h"
 #include <ncurses.h>
+#include <unistd.h>
 
-Snake::Snake(int startX, int startY) {
-    body.push_back({startX, startY});
-    currentDirection = 'R'; // 초기 방향: 오른쪽
+Snake::Snake(int startX, int startY, SnakeMap& snakeMap) 
+    : snakeMap(snakeMap), currentDirection(RIGHT) {
+    body.push_front(std::make_pair(startY, startX));     // 머리
+    body.push_back(std::make_pair(startY, startX - 1));  // 몸통 첫 번째 부분
+    body.push_back(std::make_pair(startY, startX - 2));  // 몸통 두 번째 부분
+
+    for (const auto& segment : body) {
+        snakeMap.setMap(segment.first, segment.second, 4); // Snake body on the map
+    }
+    snakeMap.setMap(body.front().first, body.front().second, 3); // Snake head on the map
 }
 
-void Snake::move(char direction) {
-    if ((currentDirection == 'R' && direction == 'L') || 
-        (currentDirection == 'L' && direction == 'R') || 
-        (currentDirection == 'U' && direction == 'D') || 
-        (currentDirection == 'D' && direction == 'U')) {
-        direction = currentDirection;
-    } else {
-        currentDirection = direction;
+void Snake::changeDirection(Direction newDirection) {
+    if ((currentDirection == UP && newDirection != DOWN) ||
+        (currentDirection == DOWN && newDirection != UP) ||
+        (currentDirection == LEFT && newDirection != RIGHT) ||
+        (currentDirection == RIGHT && newDirection != LEFT)) {
+        currentDirection = newDirection;
+    }
+}
+
+void Snake::move() {
+    auto head = body.front();
+    int nextX = head.second;
+    int nextY = head.first;
+
+    switch (currentDirection) {
+        case UP:
+            nextY -= 1; // 한 칸 위로
+            break;
+        case DOWN:
+            nextY += 1; // 한 칸 아래로
+            break;
+        case LEFT:
+            nextX -= 1; // 한 칸 왼쪽으로
+            break;
+        case RIGHT:
+            nextX += 1; // 한 칸 오른쪽으로
+            break;
     }
 
-    int x = body.front().first;
-    int y = body.front().second;
-
-    switch (direction) {
-        case 'U': y--; break;
-        case 'D': y++; break;
-        case 'L': x--; break;
-        case 'R': x++; break;
+    if (!isValidMove(nextX, nextY)) {
+        return; // Invalid move, do not proceed
     }
 
-    body.push_front({x, y});
+    body.push_front(std::make_pair(nextY, nextX));
+    snakeMap.setMap(body.front().first, body.front().second, 3); // 머리 위치 업데이트
+    snakeMap.setMap(body[1].first, body[1].second, 4); // 이전 머리를 몸통으로 업데이트
+
+    auto tail = body.back();
+    snakeMap.setMap(tail.first, tail.second, 0); // 꼬리 제거
     body.pop_back();
 }
 
-void Snake::grow() {
-    body.push_back(body.back());
+std::pair<int, int> Snake::getHeadPosition() const {
+    return body.front();
 }
 
-bool Snake::checkCollision(int mapWidth, int mapHeight) {
-    int x = body.front().first;
-    int y = body.front().second;
-
-    if (x < 0 || x >= mapWidth || y < 0 || y >= mapHeight) {
-        return true;
-    }
-
-    for (size_t i = 1; i < body.size(); ++i) {
-        if (body[i] == body.front()) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-const std::deque<std::pair<int, int> >& Snake::getBody() const {
+const std::deque<std::pair<int, int>>& Snake::getBody() const {
     return body;
+}
+
+bool Snake::isValidMove(int nextX, int nextY) {
+    int mapElement = snakeMap.getMap()[nextY][nextX];
+    if (mapElement == 1 || mapElement == 2 || mapElement == 3 || mapElement == 4) {
+        return false; // Collision with wall or snake body
+    }
+    return true;
+}
+
+bool Snake::isCollision(int x, int y) {
+    int mapElement = snakeMap.getMap()[y][x];
+    return (mapElement == 1 || mapElement == 2 || mapElement == 3 || mapElement == 4);
 }

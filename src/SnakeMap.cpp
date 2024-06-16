@@ -58,6 +58,6 @@ int** SnakeMap::getMap() const {
 
 void SnakeMap::setMap(int x, int y, int value) {
     if (x >= 0 && x < size && y >= 0 && y < size) {
-        map[y][x] = value;
+        map[x][y] = value;
     }
 }
