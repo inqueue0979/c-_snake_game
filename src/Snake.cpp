@@ -93,7 +93,7 @@ void Snake::handleGate(Gate& gateManager) {
     currentDirection = exitDirection; // 새로운 방향 설정
 }
 
-void Snake::addBodySegment(Direction currentDirection) {
+void Snake::addBodySegment() {
     auto head = body.front();
     int headX = head.second;
     int headY = head.first;
