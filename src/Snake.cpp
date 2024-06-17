@@ -2,7 +2,8 @@
 #include <ncurses.h>
 #include <unistd.h>
 #include "Gate.h"
-#include <__thread/this_thread.h>
+#include <thread>
+#include <chrono>
 
 Snake::Snake(int startX, int startY, SnakeMap& snakeMap, ScoreBoard& scoreBoard) 
     : snakeMap(snakeMap), scoreBoard(scoreBoard), currentDirection(RIGHT) {
