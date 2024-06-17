@@ -92,22 +92,22 @@ void ScoreBoard::setLevel(int level) {
     currentLevel = level;
     switch (level) {
         case 1:
-            growthGoal = 2;
+            growthGoal = 1;
             poisonGoal = 1;
             gateGoal = 1;
             break;
         case 2:
-            growthGoal = 3;
-            poisonGoal = 2;
+            growthGoal = 2;
+            poisonGoal = 1;
             gateGoal = 1;
             break;
         case 3:
-            growthGoal = 3;
-            poisonGoal = 3;
+            growthGoal = 2;
+            poisonGoal = 2;
             gateGoal = 1;
             break;
         case 4:
-            growthGoal = 2;
+            growthGoal = 3;
             poisonGoal = 2;
             gateGoal = 1;
             break;    

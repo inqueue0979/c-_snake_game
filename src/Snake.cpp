@@ -2,6 +2,7 @@
 #include <ncurses.h>
 #include <unistd.h>
 #include "Gate.h"
+#include <__thread/this_thread.h>
 
 Snake::Snake(int startX, int startY, SnakeMap& snakeMap, ScoreBoard& scoreBoard) 
     : snakeMap(snakeMap), scoreBoard(scoreBoard), currentDirection(RIGHT) {
@@ -115,16 +116,10 @@ void Snake::handleGate(Gate& gateManager) {
     auto exitGate = gateManager.getGateExit(gateIndex);
     Direction exitDirection = gateManager.getExitDirection(exitGate, currentDirection, snakeMap);
 
-    // 게이트를 통과하기 전에 현재 위치의 뱀을 제거
-    for (const auto& segment : body) {
-        snakeMap.setMap(segment.first, segment.second, 0);
-    }
-
-    body.clear();
-
     int nextX = exitGate.second;
     int nextY = exitGate.first;
 
+    // 게이트 한 칸 앞에서 생성되도록 조정
     switch (exitDirection) {
         case UP:
             nextY -= 1; // 한 칸 위로
@@ -140,14 +135,21 @@ void Snake::handleGate(Gate& gateManager) {
             break;
     }
 
-    body.push_front(std::make_pair(nextY, nextX)); // 새로운 머리 위치
-    body.push_back(std::make_pair(nextY, nextX - 1));  // 몸통 첫 번째 부분
-    body.push_back(std::make_pair(nextY, nextX - 2));  // 몸통 두 번째 부분
+    // 기존 위치의 뱀을 지우지 않고 각 부분을 하나씩 이동
+    for (size_t i = body.size(); i > 0; --i) {
+        auto segment = body[i - 1];
+        snakeMap.setMap(segment.first, segment.second, 0); // 기존 위치 지우기
 
-    for (const auto& segment : body) {
-        snakeMap.setMap(segment.first, segment.second, 4); // Snake body on the map
+        if (i == 1) {
+            body[i - 1] = std::make_pair(nextY, nextX); // 새로운 머리 위치
+        } else {
+            body[i - 1] = body[i - 2]; // 몸통을 앞의 위치로 이동
+        }
+
+        snakeMap.setMap(body[i - 1].first, body[i - 1].second, (i == 1) ? 3 : 4); // 새로운 위치 설정
+        std::this_thread::sleep_for(std::chrono::milliseconds(100)); // 이동 속도 조절
+        snakeMap.drawMap(3, 1);
     }
-    snakeMap.setMap(body.front().first, body.front().second, 3); // Snake head on the map
 
     currentDirection = exitDirection; // 새로운 방향 설정
 }
