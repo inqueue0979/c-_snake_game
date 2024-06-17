@@ -1,6 +1,7 @@
 #include "Gate.h"
 #include <cstdlib>
 #include <ctime>
+#include <algorithm> //STL - random_shuffle
 
 Gate::Gate() : gatesActive(false), gateTimer(0) {
     std::srand(std::time(nullptr)); // 랜덤 시드 설정
