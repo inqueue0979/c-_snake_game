@@ -42,6 +42,12 @@ void loadNextLevel(SnakeMap& snakeMap, Snake& snake, ScoreBoard& scoreBoard, int
         case 2:
             snakeMap.loadMap(level_2);
             break;
+        case 3:
+            snakeMap.loadMap(level_3);
+            break;
+        case 4:
+            snakeMap.loadMap(level_4);
+            break;
         // 추가 레벨 로드
         default:
             snakeMap.loadMap(level_1);

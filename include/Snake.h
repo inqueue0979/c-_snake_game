@@ -27,7 +27,6 @@ private:
     int whatIsInFrontOf(int nextX, int nextY);
     bool isCollision(int x, int y);
     void handleGate(Gate& gateManager);
-    int snakeLength;
 
     SnakeMap& snakeMap;
     ScoreBoard& scoreBoard;
